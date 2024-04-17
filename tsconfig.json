@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "outDir": "src/js/",
+    "moduleResolution": "bundler",
+  },
+  "include": [
+    "src/ts/**/*"
+  ]
+}

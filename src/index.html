@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="rus">
+
+@@include('html/head.html',{
+"title": "М и АО КГ"
+})
+
+<body>
+    <div class="wrapper">
+        <!-- @@include('html/header.html', {}) -->
+        <main class="main">
+            <div class="main__container">
+                <section class="canvas">
+                    <div class="coordinates">
+                        <p id="X">X:</p>
+                        <p id="Y">Y:</p>
+                    </div>
+                    <div class="resize">
+                        <div class="resize__right">
+                            <div class="canvas__box" id="box">
+                                <canvas id="c1"></canvas>
+                            </div>
+                            <div class="right" id="right"></div>
+                        </div>
+                        <div class="bottom" id="bottom"></div>
+                        <div class="resolution actions__action">
+                            <p>Увеличить/уменьшить количество пикселей в одной клетке</p>
+                            <div class="buttons">
+                                <button type="button" id="decrease_button" class="button">-</button>
+                                <button type="button" id="increase_button" class="button">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="canvas__sizes">
+                         <div class="resize actions__action">
+                            <p>Задать размеры окна в пикселях</p>
+                            <form id="resize_form">
+                                <div class="dot">
+                                    <label for="W">Ширина:</label>
+                                    <input type="number" id="W" name="W" placeholder="width">
+                                    <label for="H">Высота:</label>
+                                    <input type="number" id="H" name="H" placeholder="height">
+                                </div>
+                                <div class="buttons">
+                                    <button type="button" id="resize_button" class="button">ИЗМЕНИТЬ</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div> -->
+                </section>
+                <section class="actions">
+                    <div class="actions__container">
+                        <div class="actions__dots">
+                            <div class="actions__action">
+                                <p>Добавить или удалить точку</p>
+                                <form id="push_form">
+                                    <div class="dot">
+                                        <label for="push_X">Координата X:</label>
+                                        <input type="number" id="push_X" name="push_X" placeholder="X">
+                                        <label for="push_Y">Координата Y:</label>
+                                        <input type="number" id="push_Y" name="push_Y" placeholder="Y">
+                                    </div>
+                                    <div class="buttons">
+                                        <button type="button" id="push_button" class="button">ДОБАВИТЬ</button>
+                                        <button type="button" id="pop_button" class="button">УДАЛИТЬ</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="actions__action">
+                                <p>Добавить или удалить ребро</p>
+                                <form id="connect_form">
+                                    <div class="headers">
+                                        <p>Точка 1</p>
+                                        <p>Точка 2</p>
+                                    </div>
+                                    <div class="dots">
+                                        <div class="dot">
+                                            <label for="connect_X_1">Координата X:</label>
+                                            <input type="number" id="connect_X_1" name="connect_X_1" placeholder="X">
+                                            <label for="connect_Y_1">Координата Y:</label>
+                                            <input type="number" id="connect_Y_1" name="connect_Y_1" placeholder="Y">
+                                        </div>
+                                        <div class="dot">
+                                            <label for="connect_X_2">Координата X:</label>
+                                            <input type="number" id="connect_X_2" name="connect_X_2" placeholder="X">
+                                            <label for="connect_Y_2">Координата Y:</label>
+                                            <input type="number" id="connect_Y_2" name="connect_Y_2" placeholder="Y">
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <button type="button" id="connect_button" class="button">СОЕДИНИТЬ</button>
+                                        <button type="button" id="disconnect_button" class="button">УДАЛИТЬ</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="actions__action">
+                                <!-- <button type="button" id="render_button" class="button">ОТРИСОВАТЬ</button> -->
+                                <button type="button" id="clear_button" class="button">ОЧИСТИТЬ ОБЛАСТЬ</button>
+                                <button type="button" id="affine_button" class="button">ПРИМЕНИТЬ АФФИННЫЕ
+                                    ПРЕОБРАЗОВАНИЯ</button>
+                                <button type="button" id="reset_affine_button" class="button">СБРОСИТЬ
+                                    ПРЕОБРАЗОВАНИЯ</button>
+                                <button type="button" id="reset_button" class="button">ВЕРНУТЬСЯ К НАЧАЛУ
+                                    КООРДИНАТ</button>
+                            </div>
+                        </div>
+                        <div class="actions__affines">
+                            <div class="actions__action">
+                                <p>Переместить на</p>
+                                <form id="translation_form">
+                                    <div class="dot">
+                                        <label for="translation_X">Координата X:</label>
+                                        <input type="number" id="translation_X" name="translation_X" placeholder="X">
+                                        <label for="translation_Y">Координата Y:</label>
+                                        <input type="number" id="translation_Y" name="translation_Y" placeholder="Y">
+                                    </div>
+                                    <div class="button">
+                                        <input type="checkbox" id="translation" name="translation" class="checkbox" />
+                                        <label for="translation">ПЕРЕМЕСТИТЬ</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="actions__action">
+                                <p>Масштабировать с коэффициентами</p>
+                                <form id="scale_form">
+                                    <div class="dot">
+                                        <label for="scale_X">по оси OX:</label>
+                                        <input type="number" id="scale_X" name="scale_X" placeholder="OX">
+                                        <label for="scale_Y">по оси OY:</label>
+                                        <input type="number" id="scale_Y" name="scale_Y" placeholder="OY">
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="button">
+                                            <input type="checkbox" id="scale" name="scale" class="checkbox" />
+                                            <label for="scale">МАСШТАБИРОВАТЬ</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="actions__action">
+                                <form id="rotate_form">
+                                    <div class="headers">
+                                        <p>Повернуть на</p>
+                                        <p>Вокруг точки</p>
+                                    </div>
+                                    <div class="dots">
+                                        <div class="dot">
+                                            <label for="rotate_phi">Угол phi:</label>
+                                            <input type="number" id="rotate_phi" name="rotate_phi" placeholder="phi">
+                                        </div>
+                                        <div class="dot">
+                                            <label for="rotate_X">Координата X:</label>
+                                            <input type="number" id="rotate_X" name="rotate_X" placeholder="X">
+                                            <label for="rotate_Y">Координата Y:</label>
+                                            <input type="number" id="rotate_Y" name="rotate_Y" placeholder="Y">
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="button">
+                                            <input type="checkbox" id="rotate" name="rotate" class="checkbox" />
+                                            <label for="rotate">ПОВЕРНУТЬ</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mirrors">
+                                <div class="actions__action">
+                                    <p>Отразить относительно оси OX</p>
+                                    <form id="mirror_OX_form">
+                                        <div class="buttons">
+                                            <div class="button">
+                                                <input type="checkbox" id="mirror_OX" name="mirror_OX"
+                                                    class="checkbox" />
+                                                <label for="mirror_OX">ОТРАЗИТЬ</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="actions__action">
+                                    <p>Отразить относительно оси OY</p>
+                                    <form id="mirror_OY_form">
+                                        <div class="buttons">
+                                            <div class="button">
+                                                <input type="checkbox" id="mirror_OY" name="mirror_OY"
+                                                    class="checkbox" />
+                                                <label for="mirror_OY">ОТРАЗИТЬ</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="actions__action">
+                                    <p>Отразить относительно начала координат</p>
+                                    <form id="mirror_XY_form">
+                                        <div class="buttons">
+                                            <div class="button">
+                                                <input type="checkbox" id="mirror_XY" name="mirror_XY"
+                                                    class="checkbox" />
+                                                <label for="mirror_XY">ОТРАЗИТЬ</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="actions__action">
+                                <p>Отразить относительно оси, которая проходит через точки</p>
+                                <form id="mirror_form">
+                                    <div class="headers">
+                                        <p>Точка 1</p>
+                                        <p>Точка 2</p>
+                                    </div>
+                                    <div class="dots">
+                                        <div class="dot">
+                                            <label for="mirror_X_1">Координата X:</label>
+                                            <input type="number" id="mirror_X_1" name="mirror_X_1" placeholder="X">
+                                            <label for="mirror_Y_1">Координата Y:</label>
+                                            <input type="number" id="mirror_Y_1" name="mirror_Y_1" placeholder="Y">
+                                        </div>
+                                        <div class="dot">
+                                            <label for="mirror_X_2">Координата X:</label>
+                                            <input type="number" id="mirror_X_2" name="mirror_X_2" placeholder="X">
+                                            <label for="mirror_Y_2">Координата Y:</label>
+                                            <input type="number" id="mirror_Y_2" name="mirror_Y_2" placeholder="Y">
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="button">
+                                            <input type="checkbox" id="mirror" name="mirror" class="checkbox" />
+                                            <label for="mirror">ОТРАЗИТЬ</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="actions__action">
+                                <p>Масштабировать относительно осей, которые пересекаются в точке</p>
+                                <form id="scaleOX_form">
+                                    <div class="dot">
+                                        <label for="scaleOX_X_1">Координата X:</label>
+                                        <input type="number" id="scaleOX_X_1" name="scaleOX_X_1" placeholder="X">
+                                        <label for="scaleOX_Y_1">Координата Y:</label>
+                                        <input type="number" id="scaleOX_Y_1" name="scaleOX_Y_1" placeholder="Y">
+                                    </div>
+                                    <div class="dot">
+                                        <label for="scaleOX_X">с коэффициентом</label>
+                                        <input type="number" id="scaleOX_X" name="scaleOX_X" placeholder="k">
+                                    </div>
+                                    <p>по оси, которая также проходит через точку</p>
+                                    <div class="dot">
+                                        <label for="scaleOX_X_2">Координата X:</label>
+                                        <input type="number" id="scaleOX_X_2" name="scaleOX_X_2" placeholder="X">
+                                        <label for="scaleOX_Y_2">Координата Y:</label>
+                                        <input type="number" id="scaleOX_Y_2" name="scaleOX_Y_2" placeholder="Y">
+                                    </div>
+                                    <div class="dot">
+                                        <label for="scaleOX_Y">и с коэффициентом по перпендикулярной ей оси</label>
+                                        <input type="number" id="scaleOX_X" name="scaleOX_X" placeholder="m">
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="button">
+                                            <input type="checkbox" id="scaleOX" name="scaleOX" class="checkbox" />
+                                            <label for="mirror">МАСШТАБИРОВАТЬ</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <!-- @@include('html/footer.html', {}) -->
+        <script src="js/app.min.js"></script>
+    </div>
+</body>
+
+</html>

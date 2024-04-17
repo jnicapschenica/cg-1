@@ -1,0 +1,40 @@
+{
+  "name": "miaokg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "type": "module",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maria zhbankova",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-file-include": "latest",
+    "gulp-if": "latest",
+    "gulp-imagemin": "latest",
+    "gulp-newer": "latest",
+    "gulp-notify": "latest",
+    "gulp-plumber": "latest",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "latest",
+    "gulp-sass": "latest",
+    "gulp-typescript": "latest",
+    "gulp-version-number": "latest",
+    "gulp-webp": "latest",
+    "gulp-webp-html-nosvg": "latest",
+    "gulp-webpcss": "latest",
+    "sass": "latest",
+    "typescript": "^5.2.2",
+    "webp-converter": "2.2.3",
+    "webpack": "latest",
+    "webpack-stream": "latest"
+  }
+}
